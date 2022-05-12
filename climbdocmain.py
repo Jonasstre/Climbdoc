@@ -131,3 +131,4 @@ class WindowCreator:
 window = WindowCreator()
 
 sys.exit(app.exec_())
+print(1)
