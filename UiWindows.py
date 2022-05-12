@@ -2,6 +2,7 @@ import os
 import sys
 import time
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
+import pyqtgraph as pg
 
 ui_folder = os.path.join(os.path.dirname(__file__), "climbdoc")
 main_window_ui, _ = uic.loadUiType(os.path.join(ui_folder, "mainwindow.ui"))
@@ -76,6 +77,17 @@ class DataRepr(QtWidgets.QMainWindow, datarepr_ui):
     def __init__(self, parent=None):
         super(DataRepr, self).__init__(parent)
         self.setupUi(self)
+        self.scene = QtWidgets.QGraphicsScene()
+        self.graphicsView.setScene(self.scene)
+
+        self.plotWdgt0 = pg.PlotWidget()
+        self.plotWdgt1 = pg.PlotWidget()
+        self.plotWdgt2 = pg.PlotWidget()
+        self.plotWdgt3 = pg.PlotWidget()
+        self.plotWdgt4 = pg.PlotWidget()
+        self.plotWdgt5 = pg.PlotWidget()
+        self.plotWdgt6 = pg.PlotWidget()
+        self.plotWdgt7 = pg.PlotWidget()
 
 
 class Results(QtWidgets.QMainWindow, results_ui):

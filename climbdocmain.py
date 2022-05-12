@@ -16,7 +16,7 @@ arduino_not_found = False
 
 serialString = ""
 
-com_port = "COM9"
+com_port = "COM4"
 dataacquisition.com_port = com_port
 try:
     serialPort = serial.Serial(port=com_port, baudrate=9600, bytesize=8, timeout=2, stopbits=serial.STOPBITS_ONE)
@@ -86,6 +86,22 @@ def measure_once_start():
     window.datarepr_window.pushButton_rm.setText(averages[5] + "%")
     window.datarepr_window.pushButton_rr.setText(averages[6] + "%")
     window.datarepr_window.pushButton_rk.setText(averages[7] + "%")
+    plot_item0 = window.datarepr_window.plotWdgt0.plot(newdata[0])
+    plot_item1 = window.datarepr_window.plotWdgt1.plot(newdata[1])
+    plot_item2 = window.datarepr_window.plotWdgt2.plot(newdata[2])
+    plot_item3 = window.datarepr_window.plotWdgt3.plot(newdata[3])
+    plot_item4 = window.datarepr_window.plotWdgt4.plot(newdata[4])
+    plot_item5 = window.datarepr_window.plotWdgt5.plot(newdata[5])
+    plot_item6 = window.datarepr_window.plotWdgt6.plot(newdata[6])
+    plot_item7 = window.datarepr_window.plotWdgt7.plot(newdata[7])
+    proxy_widget0 = window.datarepr_window.scene.addWidget(window.datarepr_window.plotWdgt0)
+    proxy_widget1 = window.datarepr_window.scene.addWidget(window.datarepr_window.plotWdgt1)
+    proxy_widget2 = window.datarepr_window.scene.addWidget(window.datarepr_window.plotWdgt2)
+    proxy_widget3 = window.datarepr_window.scene.addWidget(window.datarepr_window.plotWdgt3)
+    proxy_widget4 = window.datarepr_window.scene.addWidget(window.datarepr_window.plotWdgt4)
+    proxy_widget5 = window.datarepr_window.scene.addWidget(window.datarepr_window.plotWdgt5)
+    proxy_widget6 = window.datarepr_window.scene.addWidget(window.datarepr_window.plotWdgt6)
+    proxy_widget7 = window.datarepr_window.scene.addWidget(window.datarepr_window.plotWdgt7)
     window.w.setCurrentIndex(5)
     serialPort.open()
 
