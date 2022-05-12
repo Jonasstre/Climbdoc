@@ -16,7 +16,7 @@ arduino_not_found = False
 
 serialString = ""
 
-com_port = "COM4"
+com_port = "COM9"
 dataacquisition.com_port = com_port
 try:
     serialPort = serial.Serial(port=com_port, baudrate=9600, bytesize=8, timeout=2, stopbits=serial.STOPBITS_ONE)
@@ -130,4 +130,3 @@ class WindowCreator:
 window = WindowCreator()
 
 sys.exit(app.exec_())
-print(1)
