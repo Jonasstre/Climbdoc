@@ -1,0 +1,5 @@
+C:/Users/agent/OneDrive - studmail.w-hs.de/6. Semesterprojekt/code/Climbdoc/build-climbdoc-Desktop_Qt_6_3_0_MinGW_64_bit-Debug/CMakeFiles/climbdoc.dir
+C:/Users/agent/OneDrive - studmail.w-hs.de/6. Semesterprojekt/code/Climbdoc/build-climbdoc-Desktop_Qt_6_3_0_MinGW_64_bit-Debug/CMakeFiles/edit_cache.dir
+C:/Users/agent/OneDrive - studmail.w-hs.de/6. Semesterprojekt/code/Climbdoc/build-climbdoc-Desktop_Qt_6_3_0_MinGW_64_bit-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/agent/OneDrive - studmail.w-hs.de/6. Semesterprojekt/code/Climbdoc/build-climbdoc-Desktop_Qt_6_3_0_MinGW_64_bit-Debug/CMakeFiles/climbdoc_autogen_timestamp_deps.dir
+C:/Users/agent/OneDrive - studmail.w-hs.de/6. Semesterprojekt/code/Climbdoc/build-climbdoc-Desktop_Qt_6_3_0_MinGW_64_bit-Debug/CMakeFiles/climbdoc_autogen.dir

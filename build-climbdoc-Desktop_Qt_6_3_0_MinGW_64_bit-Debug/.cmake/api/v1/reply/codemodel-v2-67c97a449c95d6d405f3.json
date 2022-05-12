@@ -1,0 +1,78 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "climbdoc",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "climbdoc::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-climbdoc-Debug-1f6483ad4e79c4121264.json",
+					"name" : "climbdoc",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "climbdoc_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-climbdoc_autogen-Debug-4187778f735fede86693.json",
+					"name" : "climbdoc_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "climbdoc_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-climbdoc_autogen_timestamp_deps-Debug-b500475db8772b0e5c45.json",
+					"name" : "climbdoc_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/agent/OneDrive - studmail.w-hs.de/6. Semesterprojekt/code/Climbdoc/build-climbdoc-Desktop_Qt_6_3_0_MinGW_64_bit-Debug",
+		"source" : "C:/Users/agent/OneDrive - studmail.w-hs.de/6. Semesterprojekt/code/Climbdoc/climbdoc"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}
