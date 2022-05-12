@@ -2,7 +2,6 @@
 import csv
 import os
 import numpy
-import scipy
 import matplotlib
 import sys
 import serial
