@@ -46,7 +46,8 @@ def measure():
         if serialPort.in_waiting > 0:
             readstrings = serialPort.readline().decode('Ascii').split(",")
             for i in range(0, 8):
-                read[i] = float(readstrings[i])
+                if read[i] != '':
+                    read[i] = float(readstrings[i])
         for i in read:
             if i != 0.0:
                 no_zero = True
