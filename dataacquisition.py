@@ -19,21 +19,29 @@ def data_acquisition():
         print("Arduino not Found")
         anf = True
     if not anf:
-        data_recording(serialPort)
+        data_recording()
         data_writing()
         data_processing()
         serialPort.close()
 
 
-def data_recording(serialPort):
-    ot = time.time()
-    while 1:
-        if serialPort.in_waiting > 0:
-            serialString = serialPort.readline().decode('Ascii')
-            data[time.time()] = serialString.split(",")
+def data_recording():
+    global anf
+    try:
+        serialPort = serial.Serial(port=com_port, baudrate=9600, bytesize=8, timeout=2, stopbits=serial.STOPBITS_ONE)
+    except serial.serialutil.SerialException:
+        print("Arduino not Found")
+        anf = True
+    if not anf:
+        ot = time.time()
+        while 1:
+            if serialPort.in_waiting > 0:
+                serialString = serialPort.readline().decode('Ascii')
+                data[time.time()] = serialString.split(",")
 
-            if time.time() - ot > 10:
-                break
+                if time.time() - ot > 10:
+                    break
+        serialPort.close()
 
 
 def data_writing():

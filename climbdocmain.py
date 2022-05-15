@@ -37,11 +37,30 @@ app = QtWidgets.QApplication(sys.argv)
 
 
 def measure():
+    wait_for_load()
+
+
+    window.w.setCurrentIndex(3)
+
+    if __name__ == "__main__":
+        x = threading.Thread(target=dataacquisition.data_recording)
+        y = threading.Thread(target=window.measurement_window.countdown)
+        y.start()
+        x.start()
+        x.join()
+    dataacquisition.data_writing()
+    dataacquisition.data_processing()
+    time.sleep(2)
+    print("I'm done!")
+    global newdata
+    newdata = dataacquisition.newdata
+
+
+def wait_for_load():
     no_zero = False
     read = []
     for i in range(0, 8):
         read.append(0.0)
-
     while not no_zero:
         if serialPort.in_waiting > 0:
             readstrings = serialPort.readline().decode('Ascii').split(",")
@@ -53,20 +72,7 @@ def measure():
                 no_zero = True
             if i == 0.0:
                 no_zero = False
-
     serialPort.close()
-    window.w.setCurrentIndex(3)
-
-    if __name__ == "__main__":
-        x = threading.Thread(target=dataacquisition.data_acquisition)
-        y = threading.Thread(target=window.measurement_window.countdown)
-        y.start()
-        x.start()
-        x.join()
-    time.sleep(2)
-    print("I'm done!")
-    global newdata
-    newdata = dataacquisition.newdata
 
 
 def measure_once_start():
@@ -79,36 +85,36 @@ def measure_once_start():
         for row in reader:
             averages = row
     print(averages)
-    window.datarepr_window.pushButton_lk.setText(averages[0] + "%")
-    window.datarepr_window.pushButton_lr.setText(averages[1] + "%")
-    window.datarepr_window.pushButton_lm.setText(averages[2] + "%")
-    window.datarepr_window.pushButton_lz.setText(averages[3] + "%")
-    window.datarepr_window.pushButton_rz.setText(averages[4] + "%")
-    window.datarepr_window.pushButton_rm.setText(averages[5] + "%")
-    window.datarepr_window.pushButton_rr.setText(averages[6] + "%")
-    window.datarepr_window.pushButton_rk.setText(averages[7] + "%")
-    plot_item0 = window.datarepr_window.plotWdgt0.plot(newdata[0])
-    plot_item1 = window.datarepr_window.plotWdgt1.plot(newdata[1])
-    plot_item2 = window.datarepr_window.plotWdgt2.plot(newdata[2])
-    plot_item3 = window.datarepr_window.plotWdgt3.plot(newdata[3])
-    plot_item4 = window.datarepr_window.plotWdgt4.plot(newdata[4])
-    plot_item5 = window.datarepr_window.plotWdgt5.plot(newdata[5])
-    plot_item6 = window.datarepr_window.plotWdgt6.plot(newdata[6])
-    plot_item7 = window.datarepr_window.plotWdgt7.plot(newdata[7])
-    proxy_widget0 = window.datarepr_window.scene.addWidget(window.datarepr_window.plotWdgt0)
-    proxy_widget1 = window.datarepr_window.scene.addWidget(window.datarepr_window.plotWdgt1)
-    proxy_widget2 = window.datarepr_window.scene.addWidget(window.datarepr_window.plotWdgt2)
-    proxy_widget3 = window.datarepr_window.scene.addWidget(window.datarepr_window.plotWdgt3)
-    proxy_widget4 = window.datarepr_window.scene.addWidget(window.datarepr_window.plotWdgt4)
-    proxy_widget5 = window.datarepr_window.scene.addWidget(window.datarepr_window.plotWdgt5)
-    proxy_widget6 = window.datarepr_window.scene.addWidget(window.datarepr_window.plotWdgt6)
-    proxy_widget7 = window.datarepr_window.scene.addWidget(window.datarepr_window.plotWdgt7)
+    prep_data_repr(window.datarepr_window)
     window.w.setCurrentIndex(5)
     serialPort.open()
 
 
-def restart():
-    subprocess.call([sys.executable, os.path.realpath(__file__)] + sys.argv[1:])
+def prep_data_repr(datarpr):
+    datarpr.pushButton_lk.setText(averages[0] + "%")
+    datarpr.pushButton_lr.setText(averages[1] + "%")
+    datarpr.pushButton_lm.setText(averages[2] + "%")
+    datarpr.pushButton_lz.setText(averages[3] + "%")
+    datarpr.pushButton_rz.setText(averages[4] + "%")
+    datarpr.pushButton_rm.setText(averages[5] + "%")
+    datarpr.pushButton_rr.setText(averages[6] + "%")
+    datarpr.pushButton_rk.setText(averages[7] + "%")
+    plot_item0 = datarpr.plotWdgt0.plot(newdata[0])
+    plot_item1 = datarpr.plotWdgt1.plot(newdata[1])
+    plot_item2 = datarpr.plotWdgt2.plot(newdata[2])
+    plot_item3 = datarpr.plotWdgt3.plot(newdata[3])
+    plot_item4 = datarpr.plotWdgt4.plot(newdata[4])
+    plot_item5 = datarpr.plotWdgt5.plot(newdata[5])
+    plot_item6 = datarpr.plotWdgt6.plot(newdata[6])
+    plot_item7 = datarpr.plotWdgt7.plot(newdata[7])
+    proxy_widget0 = datarpr.scene.addWidget(datarpr.plotWdgt0)
+    proxy_widget1 = datarpr.scene.addWidget(datarpr.plotWdgt1)
+    proxy_widget2 = datarpr.scene.addWidget(datarpr.plotWdgt2)
+    proxy_widget3 = datarpr.scene.addWidget(datarpr.plotWdgt3)
+    proxy_widget4 = datarpr.scene.addWidget(datarpr.plotWdgt4)
+    proxy_widget5 = datarpr.scene.addWidget(datarpr.plotWdgt5)
+    proxy_widget6 = datarpr.scene.addWidget(datarpr.plotWdgt6)
+    proxy_widget7 = datarpr.scene.addWidget(datarpr.plotWdgt7)
 
 
 class WindowCreator:
