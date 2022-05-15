@@ -55,6 +55,8 @@ def data_writing():
 
 def data_processing():                                                            # function for processing the raw data
     global newdata
+    averages.clear()
+    newdata = [[1.0], [1.0], [1.0], [1.0], [1.0], [1.0], [1.0], [1.0], [1.0]]
     with open(initials+'.csv', 'r', newline='') as file:
         reader = csv.reader(file, delimiter=',', quotechar='"')
         for row in reader:
@@ -63,11 +65,10 @@ def data_processing():                                                          
 
     for i in range(0, 9):
         newdata[i] = newdata[i][1:]
-    newdata.__delitem__(0)
 
     averagestot = []
-    for dat in newdata:
-        average = sum(dat) / len(dat)
+    for i in range(1, 8):
+        average = sum(newdata[i]) / len(newdata[i])
         averagestot.append(average)
     tot = sum(averagestot)
     for average in averagestot:
@@ -80,8 +81,8 @@ def data_processing():                                                          
         data_writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         data_writer.writerow(averages)
 
-    averages.clear()
-    newdata = [[1.0], [1.0], [1.0], [1.0], [1.0], [1.0], [1.0], [1.0], [1.0]]
+    return newdata
+
 
 
 #data_acquisition()

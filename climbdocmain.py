@@ -1,13 +1,13 @@
 # link solution: https://stackoverflow.com/questions/55842776/how-to-change-ui-in-same-window-using-pyqt5
 import csv
 import os
-import numpy
-import matplotlib
+import numpy as np
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import sys
 import serial
 import time
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
-import subprocess
 import threading
 import dataacquisition
 import UiWindows
@@ -36,6 +36,32 @@ if arduino_not_found:
 app = QtWidgets.QApplication(sys.argv)
 
 
+def set_graphics_view(scene):
+    figure = Figure()
+    axes = figure.gca()
+    axes.set_title("My Plot")
+    seconds = []
+    for element in newdata[0]:
+        seconds.append(round((element - newdata[0][0]), 3))
+    x = np.linspace(seconds)
+    y = []
+    for i in range (1, 8):
+        y.append(np.linespace(newdata[i]))
+    axes.plot(x, y[0], "-k", label="first one")
+    axes.plot(x, y[1], "-b", label="second one")
+    axes.plot(x, y[2], "-b", label="third one")
+    axes.plot(x, y[3], "-b", label="fourth one")
+    axes.plot(x, y[4], "-b", label="fifth one")
+    axes.plot(x, y[5], "-b", label="sixth one")
+    axes.plot(x, y[6], "-b", label="seventh one")
+    axes.plot(x, y[7], "-b", label="eighth one")
+    axes.legend()
+    axes.grid(True)
+
+    canvas = FigureCanvas(figure)
+    proxy_widget = scene.addWidget(canvas)
+
+
 def measure():
     wait_for_load()
 
@@ -49,11 +75,11 @@ def measure():
         x.start()
         x.join()
     dataacquisition.data_writing()
-    dataacquisition.data_processing()
+    global newdata
+    newdata = dataacquisition.data_processing()
     time.sleep(2)
     print("I'm done!")
-    global newdata
-    newdata = dataacquisition.newdata
+
 
 
 def wait_for_load():
@@ -76,21 +102,21 @@ def wait_for_load():
 
 
 def measure_once_start():           #function linked to the measure once button in the main menu
-    global averages
     window.w.setCurrentIndex(4)
     app.processEvents()
     measure()
-    with open(initials + '_averages.csv', 'r', newline='') as file:
-        reader = csv.reader(file, delimiter=',', quotechar='"')
-        for row in reader:
-            averages = row
-    print(averages)
     prep_data_repr(window.datarepr_window)
     window.w.setCurrentIndex(5)
     serialPort.open()
 
 
 def prep_data_repr(datarpr):   # function for inserting the data into the data representation window
+    global averages
+    with open(initials + '_averages.csv', 'r', newline='') as file:
+        reader = csv.reader(file, delimiter=',', quotechar='"')
+        for row in reader:
+            averages = row
+    print(averages)
     datarpr.pushButton_lk.setText(averages[0] + "%")
     datarpr.pushButton_lr.setText(averages[1] + "%")
     datarpr.pushButton_lm.setText(averages[2] + "%")
@@ -99,22 +125,7 @@ def prep_data_repr(datarpr):   # function for inserting the data into the data r
     datarpr.pushButton_rm.setText(averages[5] + "%")
     datarpr.pushButton_rr.setText(averages[6] + "%")
     datarpr.pushButton_rk.setText(averages[7] + "%")
-    plot_item0 = datarpr.plotWdgt0.plot(newdata[0])
-    plot_item1 = datarpr.plotWdgt1.plot(newdata[1])
-    plot_item2 = datarpr.plotWdgt2.plot(newdata[2])
-    plot_item3 = datarpr.plotWdgt3.plot(newdata[3])
-    plot_item4 = datarpr.plotWdgt4.plot(newdata[4])
-    plot_item5 = datarpr.plotWdgt5.plot(newdata[5])
-    plot_item6 = datarpr.plotWdgt6.plot(newdata[6])
-    plot_item7 = datarpr.plotWdgt7.plot(newdata[7])
-    proxy_widget0 = datarpr.scene.addWidget(datarpr.plotWdgt0)
-    proxy_widget1 = datarpr.scene.addWidget(datarpr.plotWdgt1)
-    proxy_widget2 = datarpr.scene.addWidget(datarpr.plotWdgt2)
-    proxy_widget3 = datarpr.scene.addWidget(datarpr.plotWdgt3)
-    proxy_widget4 = datarpr.scene.addWidget(datarpr.plotWdgt4)
-    proxy_widget5 = datarpr.scene.addWidget(datarpr.plotWdgt5)
-    proxy_widget6 = datarpr.scene.addWidget(datarpr.plotWdgt6)
-    proxy_widget7 = datarpr.scene.addWidget(datarpr.plotWdgt7)
+    set_graphics_view(window.datarepr_window.scene)
 
 
 class WindowCreator:

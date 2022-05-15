@@ -80,15 +80,6 @@ class DataRepr(QtWidgets.QMainWindow, datarepr_ui):
         self.scene = QtWidgets.QGraphicsScene()
         self.graphicsView.setScene(self.scene)
 
-        self.plotWdgt0 = pg.PlotWidget()
-        self.plotWdgt1 = pg.PlotWidget()
-        self.plotWdgt2 = pg.PlotWidget()
-        self.plotWdgt3 = pg.PlotWidget()
-        self.plotWdgt4 = pg.PlotWidget()
-        self.plotWdgt5 = pg.PlotWidget()
-        self.plotWdgt6 = pg.PlotWidget()
-        self.plotWdgt7 = pg.PlotWidget()
-
 
 class Results(QtWidgets.QMainWindow, results_ui):
     def __init__(self, parent=None):
