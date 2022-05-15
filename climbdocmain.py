@@ -75,7 +75,7 @@ def wait_for_load():
     serialPort.close()
 
 
-def measure_once_start():
+def measure_once_start():           #function linked to the measure once button in the main menu
     global averages
     window.w.setCurrentIndex(4)
     app.processEvents()
@@ -90,7 +90,7 @@ def measure_once_start():
     serialPort.open()
 
 
-def prep_data_repr(datarpr):
+def prep_data_repr(datarpr):   # function for inserting the data into the data representation window
     datarpr.pushButton_lk.setText(averages[0] + "%")
     datarpr.pushButton_lr.setText(averages[1] + "%")
     datarpr.pushButton_lm.setText(averages[2] + "%")
