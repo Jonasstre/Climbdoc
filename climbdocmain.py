@@ -45,7 +45,7 @@ def set_graphics_view(scene):
         seconds.append(round((element - newdata[0][0]), 3))
     x = np.linspace(seconds)
     y = []
-    for i in range (1, 8):
+    for i in range(1, 8):
         y.append(np.linespace(newdata[i]))
     axes.plot(x, y[0], "-k", label="first one")
     axes.plot(x, y[1], "-b", label="second one")
@@ -79,7 +79,6 @@ def measure():
     newdata = dataacquisition.data_processing()
     time.sleep(2)
     print("I'm done!")
-
 
 
 def wait_for_load():
@@ -125,7 +124,14 @@ def prep_data_repr(datarpr):   # function for inserting the data into the data r
     datarpr.pushButton_rm.setText(averages[5] + "%")
     datarpr.pushButton_rr.setText(averages[6] + "%")
     datarpr.pushButton_rk.setText(averages[7] + "%")
-    set_graphics_view(window.datarepr_window.scene)
+    set_graphics_view(datarpr.scene)
+
+
+def datarep_test():
+    global newdata
+    newdata = dataacquisition.data_processing()
+    prep_data_repr(window.datarepr_window)
+    window.w.setCurrentIndex(5)
 
 
 class WindowCreator:
@@ -149,12 +155,12 @@ class WindowCreator:
         self.push_button_connect()
         self.w.show()
         self.w.setWindowTitle("ClimbDoc")
-        if arduino_not_found:
-            self.w.setCurrentIndex(1)
+        #if arduino_not_found:
+         #   self.w.setCurrentIndex(1)
 
     def push_button_connect(self):
         self.main_window.pushButton_2.clicked.connect(measure_once_start)
-        self.main_window.pushButton_3.clicked.connect(lambda: self.w.setCurrentIndex(2))
+        self.main_window.pushButton_3.clicked.connect(datarep_test)
         self.main_window.pushButton_4.clicked.connect(lambda: self.w.setCurrentIndex(2))
         self.main_window.pushButton.clicked.connect(lambda: sys.exit(app.exec_()))
         self.datarepr_window.pushButton.clicked.connect(lambda: self.w.setCurrentIndex(6))
