@@ -39,32 +39,32 @@ app = QtWidgets.QApplication(sys.argv)
 def set_graphics_view(scene):
     figure = Figure()
     axes = figure.gca()
-    axes.set_title("My Plot")
+    axes.set_title("Finger forces")
     seconds = []
     for element in newdata[0]:
         seconds.append(round((element - newdata[0][0]), 3))
-    x = np.linspace(seconds)
+    x = seconds
     y = []
-    for i in range(1, 8):
-        y.append(np.linespace(newdata[i]))
-    axes.plot(x, y[0], "-k", label="first one")
-    axes.plot(x, y[1], "-b", label="second one")
-    axes.plot(x, y[2], "-b", label="third one")
-    axes.plot(x, y[3], "-b", label="fourth one")
-    axes.plot(x, y[4], "-b", label="fifth one")
-    axes.plot(x, y[5], "-b", label="sixth one")
-    axes.plot(x, y[6], "-b", label="seventh one")
-    axes.plot(x, y[7], "-b", label="eighth one")
+    for i in range(1, 9):
+        y.append(newdata[i])
+    axes.plot(x, y[0], "-b")
+    axes.plot(x, y[1], "-k")
+    axes.plot(x, y[2], "-g")
+    axes.plot(x, y[3], "-r")
+    axes.plot(x, y[4], "-c")
+    axes.plot(x, y[5], "-m")
+    axes.plot(x, y[6], "-y")
+    axes.plot(x, y[7], "-k")
     axes.legend()
     axes.grid(True)
 
     canvas = FigureCanvas(figure)
+    canvas.resize(1170, 540)
     proxy_widget = scene.addWidget(canvas)
 
 
 def measure():
     wait_for_load()
-
 
     window.w.setCurrentIndex(3)
 
@@ -127,7 +127,7 @@ def prep_data_repr(datarpr):   # function for inserting the data into the data r
     set_graphics_view(datarpr.scene)
 
 
-def datarep_test():
+def datarep_test():     # function for testing the data representatin window
     global newdata
     newdata = dataacquisition.data_processing()
     prep_data_repr(window.datarepr_window)

@@ -39,7 +39,7 @@ def data_recording():
                 serialString = serialPort.readline().decode('Ascii')
                 data[time.time()] = serialString.split(",")
 
-                if time.time() - ot > 10:
+                if time.time() - ot > 12:
                     break
         serialPort.close()
 
@@ -64,10 +64,10 @@ def data_processing():                                                          
                 newdata[i].append(float(row[i]))
 
     for i in range(0, 9):
-        newdata[i] = newdata[i][1:]
+        newdata[i] = newdata[i][1:-5]
 
     averagestot = []
-    for i in range(1, 8):
+    for i in range(1, 9):
         average = sum(newdata[i]) / len(newdata[i])
         averagestot.append(average)
     tot = sum(averagestot)

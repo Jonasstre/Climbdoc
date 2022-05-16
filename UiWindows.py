@@ -92,4 +92,4 @@ class Results(QtWidgets.QMainWindow, results_ui):
         self.label_rz.setVisible(False)
         self.label_rm.setVisible(False)
         self.label_rr.setVisible(False)
-        #self.label_rk.setVisible(False)
+        self.label_rk.setVisible(False)

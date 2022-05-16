@@ -55,7 +55,7 @@
     <string notr="true">color: rgb(255, 255, 0);</string>
    </property>
    <property name="text">
-    <string>You appear to avoid loading your left pinky. Please monitor for Injury!</string>
+    <string>You appear to avoid loading your left pinky. Please monitor for injury!</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_lr">
@@ -76,7 +76,7 @@
     <string notr="true">color: rgb(255, 255, 0);</string>
    </property>
    <property name="text">
-    <string>You appear to avoid loading your left ringfinger. Please monitor for Injury!</string>
+    <string>You appear to avoid loading your left ringfinger. Please monitor for injury!</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_lm">
@@ -97,7 +97,7 @@
     <string notr="true">color: rgb(255, 255, 0);</string>
    </property>
    <property name="text">
-    <string>You appear to avoid loading your left middlefinger. Please monitor for Injury!</string>
+    <string>You appear to avoid loading your left middlefinger. Please monitor for injury!</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_lz">
@@ -118,7 +118,7 @@
     <string notr="true">color: rgb(255, 255, 0);</string>
    </property>
    <property name="text">
-    <string>You appear to avoid loading your left index finger. Please monitor for Injury!</string>
+    <string>You appear to avoid loading your left index finger. Please monitor for injury!</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_rz">
@@ -139,7 +139,7 @@
     <string notr="true">color: rgb(255, 255, 0);</string>
    </property>
    <property name="text">
-    <string>You appear to avoid loading your right index finger. Please monitor for Injury!</string>
+    <string>You appear to avoid loading your right index finger. Please monitor for injury!</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_rm">
@@ -160,7 +160,7 @@
     <string notr="true">color: rgb(255, 255, 0);</string>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;You appear to avoid loading your right middlefinger.&lt;br/&gt;Please monitor for Injury!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;You appear to avoid loading your right middlefinger.&lt;br/&gt;Please monitor for injury!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_rr">
@@ -181,7 +181,7 @@
     <string notr="true">color: rgb(255, 255, 0);</string>
    </property>
    <property name="text">
-    <string>You appear to avoid loading your right ring finger. Please monitor for Injury!</string>
+    <string>You appear to avoid loading your right ring finger. Please monitor for injury!</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_rk">
@@ -202,7 +202,7 @@
     <string notr="true">color: rgb(255, 255, 0);</string>
    </property>
    <property name="text">
-    <string>You appear to avoid loading your right pinky. Please monitor for Injury!</string>
+    <string>You appear to avoid loading your right pinky. Please monitor for injury!</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">
