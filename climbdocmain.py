@@ -74,9 +74,9 @@ def measure():
         y.start()
         x.start()
         x.join()
-    dataacquisition.data_writing()
+    dataacquisition.data_writing(initials)
     global newdata
-    newdata = dataacquisition.data_processing()
+    newdata = dataacquisition.data_processing(initials)
     time.sleep(2)
     print("I'm done!")
 
@@ -105,8 +105,69 @@ def measure_once_start():           #function linked to the measure once button 
     app.processEvents()
     measure()
     prep_data_repr(window.datarepr_window)
+    window.datarepr_window.pushButton.clicked.connect(lambda: window.w.setCurrentIndex(6))
     window.w.setCurrentIndex(5)
     serialPort.open()
+
+
+def check_if_free():
+    initials = window.initials_window.textEdit.toPlainText()
+    if initials == '':
+        window.initials_window.label_2.setText("Please enter initials!")
+        window.initials_window.label_2.setVisible(True)
+    elif initials + "_reference.csv" in os.listdir(__file__):
+        window.initials_window.label_2.setText(
+            "Initials already taken! Please add another identifier! (For example a number)"
+        )
+        window.initials_window.label_2.setVisible(True)
+    else:
+        dataacquisition.initials = initials + "_reference"
+        measure_twice_one()
+
+
+def check_if_exists():
+    initials = window.initials_window.textEdit.toPlainText()
+    if initials == '':
+        window.initials_window.label_2.setText("Please enter initials!")
+        window.initials_window.label_2.setVisible(True)
+    elif initials + "_reference.csv" not in os.listdir(__file__):
+        window.initials_window.label_2.setText(
+            "No data found! Please try different initials!"
+        )
+        window.initials_window.label_2.setVisible(True)
+    else:
+        dataacquisition.initials = initials
+        measure_twice_two()
+
+
+def measure_twice_two():
+    window.w.setCurrentIndex(4)
+    app.processEvents()
+    measure()
+    prep_data_repr(window.datarepr_window)
+    window.datarepr_window.pushButton.clicked.connect(lambda: window.w.setCurrentIndex(6))
+    window.w.setCurrentIndex(5)
+    serialPort.open()
+
+
+def measure_twice_two_start():
+    window.w.setCurrentIndex(2)
+    window.initials_window.pushButton.clicked.connect(check_if_exists)
+
+
+def measure_twice_one():
+    window.w.setCurrentIndex(4)
+    app.processEvents()
+    measure()
+    prep_data_repr(window.datarepr_window)
+    window.datarepr_window.pushButton.clicked.connect(lambda: window.w.setCurrentIndex(0))
+    window.w.setCurrentIndex(5)
+    serialPort.open()
+
+
+def measure_twice_one_start():
+    window.w.setCurrentIndex(2)
+    window.initials_window.pushButton.clicked.connect(check_if_free)
 
 
 def prep_data_repr(datarpr):   # function for inserting the data into the data representation window
@@ -160,8 +221,8 @@ class WindowCreator:
 
     def push_button_connect(self):
         self.main_window.pushButton_2.clicked.connect(measure_once_start)
-        self.main_window.pushButton_3.clicked.connect(datarep_test)
-        self.main_window.pushButton_4.clicked.connect(lambda: self.w.setCurrentIndex(2))
+        self.main_window.pushButton_3.clicked.connect(measure_twice_one_start)
+        self.main_window.pushButton_4.clicked.connect(measure_twice_two_start)
         self.main_window.pushButton.clicked.connect(lambda: sys.exit(app.exec_()))
         self.datarepr_window.pushButton.clicked.connect(lambda: self.w.setCurrentIndex(6))
         self.results_window.pushButton.clicked.connect(lambda: self.w.setCurrentIndex(0))

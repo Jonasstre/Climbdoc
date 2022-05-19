@@ -44,7 +44,7 @@ def data_recording():
         serialPort.close()
 
 
-def data_writing():
+def data_writing(initials):
     with open(initials+'.csv', 'w', newline='') as file:
         data_writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         for key in data.keys():
@@ -53,7 +53,7 @@ def data_writing():
             data_writer.writerow(row)
 
 
-def data_processing():                                                            # function for processing the raw data
+def data_processing(initials):                                                    # function for processing the raw data
     global newdata
     averages.clear()
     newdata = [[1.0], [1.0], [1.0], [1.0], [1.0], [1.0], [1.0], [1.0], [1.0]]

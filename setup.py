@@ -8,5 +8,5 @@ setup(
     license='',
     author='Jonas Streckmann',
     author_email='Jonas.H.Streckmann@studmail.w-hs.de',
-    description='Python program for the "Kletterretter" projet'
+    description='Python program for the "Kletterretter" project'
 )
