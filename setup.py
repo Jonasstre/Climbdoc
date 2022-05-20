@@ -11,7 +11,14 @@ setup(
     author_email='Jonas.H.Streckmann@studmail.w-hs.de',
     description='Python program for the "Kletterretter" project',
     install_requires=[
-        "PyQt5"
+        "matplotlib==3.5.2"
+        "numpy==1.22.3"
+        "PyQt5==5.15.6"
+        "pyqtgraph==0.12.4"
+        "pyserial==3.5"
+        "qtpy==2.1.0"
+        "setuptools==58.1.0"
+
     ],
     python_requires='>=3.10.4'
 )

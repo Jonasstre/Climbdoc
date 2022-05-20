@@ -111,3 +111,16 @@
 #         proc.append(p)
 #     for p in proc:
 #         p.join()
+
+# def data_acquisition():
+#     global anf
+#     try:
+#         serialPort = serial.Serial(port=com_port, baudrate=9600, bytesize=8, timeout=2, stopbits=serial.STOPBITS_ONE)
+#     except serial.serialutil.SerialException:
+#         print("Arduino not Found")
+#         anf = True
+#     if not anf:
+#         data_recording()
+#         data_writing()
+#         data_processing()
+#         serialPort.close()

@@ -22,20 +22,17 @@ try:
 except serial.serialutil.SerialException:
     print("Arduino not Found")
     arduino_not_found = True
-state = "menu"
-data = {}
-initials = "NoInitialsGiven"
-averages = []
-newdata = []
-dataacquisition.initials = initials
+# data = {}
+# averages = []
+# newdata = []
 
-if arduino_not_found:
-    state = "anfError"
+# if arduino_not_found:
+#     state = "anfError"
 
 app = QtWidgets.QApplication(sys.argv)
 
 
-def set_graphics_view(scene):
+def set_graphics_view(scene, newdata):
     figure = Figure()
     axes = figure.gca()
     axes.set_title("Finger forces")
@@ -62,7 +59,7 @@ def set_graphics_view(scene):
     proxy_widget = scene.addWidget(canvas)
 
 
-def measure():
+def measure(initials):
     wait_for_load()
 
     window.w.setCurrentIndex(3)
@@ -74,10 +71,10 @@ def measure():
         x.start()
         x.join()
     dataacquisition.data_writing(initials)
-    global newdata
     newdata = dataacquisition.data_processing(initials)
     time.sleep(2)
     print("I'm done!")
+    return newdata
 
 
 def wait_for_load():
@@ -102,8 +99,8 @@ def wait_for_load():
 def measure_once_start():           #function linked to the measure once button in the main menu
     window.w.setCurrentIndex(4)
     app.processEvents()
-    measure()
-    prep_data_repr(window.datarepr_window)
+    newdata = measure("No_initials")
+    prep_data_repr(window.datarepr_window, "No_initials", newdata)
     window.datarepr_window.pushButton.clicked.connect(lambda: window.w.setCurrentIndex(6))
     window.w.setCurrentIndex(5)
     serialPort.open()
@@ -111,42 +108,42 @@ def measure_once_start():           #function linked to the measure once button 
 
 def check_if_free():
     initials = window.initials_window.textEdit.toPlainText()
-    if initials == '':
+    if initials != '' and initials + "_reference.csv" not in os.listdir(os.path.dirname(__file__)):
+        measure_twice_one(initials + "_reference")
+    elif initials == '':
         window.initials_window.label_2.setText("Please enter initials!")
         window.initials_window.label_2.setVisible(True)
-    elif initials + "_reference.csv" in os.listdir(__file__):
+    elif initials + "_reference.csv" in os.listdir(os.path.dirname(__file__)):
         window.initials_window.label_2.setText(
             "Initials already taken! Please add another identifier! (For example a number)"
         )
         window.initials_window.label_2.setVisible(True)
-    else:
-        dataacquisition.initials = initials + "_reference"
-        measure_twice_one()
 
 
 def check_if_exists():
     initials = window.initials_window.textEdit.toPlainText()
-    if initials == '':
+    if initials != '' and initials + "_reference.csv" in os.listdir(os.path.dirname(__file__)):
+        measure_twice_two(initials)
+    elif initials == '':
         window.initials_window.label_2.setText("Please enter initials!")
         window.initials_window.label_2.setVisible(True)
-    elif initials + "_reference.csv" not in os.listdir(__file__):
+    elif initials + "_reference.csv" not in os.listdir(os.path.dirname(__file__)):
         window.initials_window.label_2.setText(
             "No data found! Please try different initials!"
         )
         window.initials_window.label_2.setVisible(True)
-    else:
-        dataacquisition.initials = initials
-        measure_twice_two()
 
 
-def measure_twice_two():
+def measure_twice_two(initials):
     window.w.setCurrentIndex(4)
     app.processEvents()
-    measure()
-    prep_data_repr(window.datarepr_window)
+    newdata = measure(initials)
+    prep_data_repr(window.datarepr_window, initials, newdata)
     window.datarepr_window.pushButton.clicked.connect(lambda: window.w.setCurrentIndex(6))
     window.w.setCurrentIndex(5)
     serialPort.open()
+    window.initials_window.label_2.setVisible(False)
+    window.initials_window.textEdit.clear()
 
 
 def measure_twice_two_start():
@@ -154,14 +151,16 @@ def measure_twice_two_start():
     window.initials_window.pushButton.clicked.connect(check_if_exists)
 
 
-def measure_twice_one():
+def measure_twice_one(initials):
     window.w.setCurrentIndex(4)
     app.processEvents()
-    measure()
-    prep_data_repr(window.datarepr_window)
+    newdata = measure(initials)
+    prep_data_repr(window.datarepr_window, initials, newdata)
     window.datarepr_window.pushButton.clicked.connect(lambda: window.w.setCurrentIndex(0))
     window.w.setCurrentIndex(5)
     serialPort.open()
+    window.initials_window.label_2.setVisible(False)
+    window.initials_window.textEdit.clear()
 
 
 def measure_twice_one_start():
@@ -169,8 +168,7 @@ def measure_twice_one_start():
     window.initials_window.pushButton.clicked.connect(check_if_free)
 
 
-def prep_data_repr(datarpr):   # function for inserting the data into the data representation window
-    global averages
+def prep_data_repr(datarpr, initials, newdata):   # function for inserting the data into the data representation window
     with open(initials + '_averages.csv', 'r', newline='') as file:
         reader = csv.reader(file, delimiter=',', quotechar='"')
         for row in reader:
@@ -184,14 +182,14 @@ def prep_data_repr(datarpr):   # function for inserting the data into the data r
     datarpr.pushButton_rm.setText(averages[5] + "%")
     datarpr.pushButton_rr.setText(averages[6] + "%")
     datarpr.pushButton_rk.setText(averages[7] + "%")
-    set_graphics_view(datarpr.scene)
+    set_graphics_view(datarpr.scene, newdata)
 
 
-def datarep_test():     # function for testing the data representatin window
-    global newdata
-    newdata = dataacquisition.data_processing()
-    prep_data_repr(window.datarepr_window)
-    window.w.setCurrentIndex(5)
+# def datarep_test():     # function for testing the data representatin window
+#     global newdata
+#     newdata = dataacquisition.data_processing()
+#     prep_data_repr(window.datarepr_window)
+#     window.w.setCurrentIndex(5)
 
 
 class WindowCreator:
@@ -215,8 +213,8 @@ class WindowCreator:
         self.push_button_connect()
         self.w.show()
         self.w.setWindowTitle("ClimbDoc")
-        #if arduino_not_found:
-         #   self.w.setCurrentIndex(1)
+        if arduino_not_found:
+            self.w.setCurrentIndex(1)
 
     def push_button_connect(self):
         self.main_window.pushButton_2.clicked.connect(measure_once_start)

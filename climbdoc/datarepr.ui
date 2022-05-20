@@ -411,7 +411,7 @@ color: rgb(0, 0, 127);
 </string>
    </property>
    <property name="text">
-    <string>Results</string>
+    <string>Continue</string>
    </property>
   </widget>
  </widget>
