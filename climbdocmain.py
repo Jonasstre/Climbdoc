@@ -96,11 +96,50 @@ def wait_for_load():
     serialPort.close()
 
 
+def prep_results(initials):
+    performance = []
+    signal = [
+        window.results_window.label_1,
+        window.results_window.label_2,
+        window.results_window.label_3,
+        window.results_window.label_4,
+        window.results_window.label_5,
+        window.results_window.label_6,
+        window.results_window.label_7,
+        window.results_window.label_8
+    ]
+    with open(initials + '_reference_averages.csv', 'r', newline='') as file:
+        reader = csv.reader(file, delimiter=',', quotechar='"')
+        for row in reader:
+            averages_reference = row
+    with open(initials + '_averages.csv', 'r', newline='') as file:
+        reader = csv.reader(file, delimiter=',', quotechar='"')
+        for row in reader:
+            averages = row
+    for i in range(0, 8):
+        if float(averages_reference[i]) - float(averages_reference[i]) * 0.1 < float(averages[i]) \
+                < float(averages_reference[i]) + float(averages_reference[i]) * 0.1:
+            performance.append(0)
+        elif float(averages_reference[i]) - float(averages_reference[i]) * 0.2 < float(averages[i]) \
+                < float(averages_reference[i]) + float(averages_reference[i]) * 0.2:
+            performance.append(1)
+        else:
+            performance.append(2)
+    for i in range(0, 8):
+        if performance[i] == 0:
+            signal[i].setStyleSheet("background-color: green")
+        elif performance[i] == 1:
+            signal[i].setStyleSheet("background-color: yellow")
+        elif performance[i] == 2:
+            signal[i].setStyleSheet("background-color: red")
+
+
 def measure_once_start():           #function linked to the measure once button in the main menu
     window.w.setCurrentIndex(4)
     app.processEvents()
     newdata = measure("No_initials")
     prep_data_repr(window.datarepr_window, "No_initials", newdata)
+    prep_results("No_initials")
     window.datarepr_window.pushButton.clicked.connect(lambda: window.w.setCurrentIndex(6))
     window.w.setCurrentIndex(5)
     serialPort.open()
@@ -139,6 +178,7 @@ def measure_twice_two(initials):
     app.processEvents()
     newdata = measure(initials)
     prep_data_repr(window.datarepr_window, initials, newdata)
+    prep_results(initials)
     window.datarepr_window.pushButton.clicked.connect(lambda: window.w.setCurrentIndex(6))
     window.w.setCurrentIndex(5)
     serialPort.open()

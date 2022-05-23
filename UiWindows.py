@@ -85,11 +85,3 @@ class Results(QtWidgets.QMainWindow, results_ui):
     def __init__(self, parent=None):
         super(Results, self).__init__(parent)
         self.setupUi(self)
-        self.label_lk.setVisible(False)
-        self.label_lr.setVisible(False)
-        self.label_lm.setVisible(False)
-        self.label_lz.setVisible(False)
-        self.label_rz.setVisible(False)
-        self.label_rm.setVisible(False)
-        self.label_rr.setVisible(False)
-        self.label_rk.setVisible(False)
