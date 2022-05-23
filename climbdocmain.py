@@ -184,6 +184,10 @@ def measure_twice_two(initials):
     serialPort.open()
     window.initials_window.label_2.setVisible(False)
     window.initials_window.textEdit.clear()
+    os.remove(os.path.join(os.path.dirname(__file__), initials + "_reference.csv"))
+    os.remove(os.path.join(os.path.dirname(__file__), initials + "_reference_averages.csv"))
+    os.remove(os.path.join(os.path.dirname(__file__), initials + ".csv"))
+    os.remove(os.path.join(os.path.dirname(__file__), initials + "_averages.csv"))
 
 
 def measure_twice_two_start():
