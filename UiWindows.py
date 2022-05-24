@@ -1,7 +1,7 @@
 import os
 import sys
 import time
-from PyQt5 import QtCore, QtGui, QtWidgets, uic
+from qtpy import QtCore, QtGui, QtWidgets, uic
 import pyqtgraph as pg
 
 ui_folder = os.path.join(os.path.dirname(__file__), "climbdoc")
