@@ -25,7 +25,6 @@ except serial.serialutil.SerialException:
 # data = {}
 # averages = []
 # newdata = []
-
 # if arduino_not_found:
 #     state = "anfError"
 
@@ -85,9 +84,10 @@ def wait_for_load():
     while not no_zero:
         if serialPort.in_waiting > 0:
             readstrings = serialPort.readline().decode('Ascii').split(",")
-            for i in range(0, 8):
-                if read[i] != '':
-                    read[i] = float(readstrings[i])
+            if '' in readstrings:
+                readstrings.remove('')
+            for element in readstrings:
+                read.append(float(element))
         for i in read:
             if i != 0.0:
                 no_zero = True
