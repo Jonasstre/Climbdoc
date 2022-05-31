@@ -1,12 +1,14 @@
 # link solution: https://stackoverflow.com/questions/55842776/how-to-change-ui-in-same-window-using-pyqt5
+
+
 import csv
 import os
+from qtpy import QtCore, QtGui, QtWidgets, uic
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import sys
 import serial
 import time
-from qtpy import QtCore, QtGui, QtWidgets, uic
 import threading
 import dataacquisition
 import UiWindows
