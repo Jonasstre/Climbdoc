@@ -79,11 +79,9 @@ def measure(initials):
 def wait_for_load():
     no_zero = False
     read = []
-    for i in range(0, 8):
-        read.append(0.0)
     while not no_zero:
         if serialPort.in_waiting > 0:
-            readstrings = serialPort.readline().decode('Ascii').split(",")
+            readstrings = serialPort.readline().decode('Ascii').strip().split(",")
             if '' in readstrings:
                 readstrings.remove('')
             for element in readstrings:
