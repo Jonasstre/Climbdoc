@@ -68,8 +68,8 @@ def measure(initials):
     if __name__ == "__main__":
         x = threading.Thread(target=dataacquisition.data_recording)
         y = threading.Thread(target=window.measurement_window.countdown)
-        y.start()
         x.start()
+        y.start()
         x.join()
     dataacquisition.data_writing(initials)
     newdata = dataacquisition.data_processing(initials)
