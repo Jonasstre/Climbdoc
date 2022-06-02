@@ -2,16 +2,24 @@ import os
 import sys
 import time
 from qtpy import QtCore, QtGui, QtWidgets, uic
-import pyqtgraph as pg
 
-ui_folder = os.path.join(os.path.dirname(__file__), "climbdoc")
-main_window_ui, _ = uic.loadUiType(os.path.join(ui_folder, "mainwindow.ui"))
-ard_not_found_ui, _ = uic.loadUiType(os.path.join(ui_folder, "ardnotfound.ui"))
-initials_ui, _ = uic.loadUiType(os.path.join(ui_folder, "initials.ui"))
-measurement_ui, _ = uic.loadUiType(os.path.join(ui_folder, "measurement.ui"))
-between_ui, _ = uic.loadUiType(os.path.join(ui_folder, "between.ui"))
-datarepr_ui, _ = uic.loadUiType(os.path.join(ui_folder, "datarepr.ui"))
-results_ui, _ = uic.loadUiType(os.path.join(ui_folder, "results.ui"))
+from ardnotfound import Ui_ardnotfound as ard_not_found_ui
+from between import Ui_Form as between_ui
+from mainwindow import Ui_MainWindow as main_window_ui
+from initials import Ui_initials as initials_ui
+from measurement import Ui_Form as measurement_ui
+from datarepr import Ui_Form as datarepr_ui
+from results import Ui_Form as results_ui
+
+#ui_folder = os.path.join(os.path.dirname(__file__), "climbdoc")
+#main_window_ui, _ = uic.loadUiType(os.path.join(ui_folder, "mainwindow.ui"))
+#ard_not_found_ui, _ = uic.loadUiType(os.path.join(ui_folder, "ardnotfound.ui"))
+#initials_ui, _ = uic.loadUiType(os.path.join(ui_folder, "initials.ui"))
+#measurement_ui, _ = uic.loadUiType(os.path.join(ui_folder, "measurement.ui"))
+#between_ui, _ = uic.loadUiType(os.path.join(ui_folder, "between.ui"))
+#datarepr_ui, _ = uic.loadUiType(os.path.join(ui_folder, "datarepr.ui"))
+#results_ui, _ = uic.loadUiType(os.path.join(ui_folder, "results.ui"))
+
 
 
 class MainWindow(QtWidgets.QMainWindow, main_window_ui):
