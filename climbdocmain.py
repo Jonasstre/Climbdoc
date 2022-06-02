@@ -17,7 +17,7 @@ arduino_not_found = False
 
 serialString = ""
 
-com_port = "COM4"
+com_port = "COM3"
 dataacquisition.com_port = com_port
 try:
     serialPort = serial.Serial(port=com_port, baudrate=9600, bytesize=8, timeout=2, stopbits=serial.STOPBITS_ONE)
@@ -90,12 +90,15 @@ def wait_for_load():
                 except ValueError:
                     continue
         print(read)
+        if not read:
+            continue
         for i in read:
             if i != 0.0:
                 no_zero = True
             if i == 0.0:
                 no_zero = False
                 break
+        read.clear()
     serialPort.close()
 
 
