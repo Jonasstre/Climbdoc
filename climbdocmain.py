@@ -84,15 +84,18 @@ def wait_for_load():
     while not no_zero:
         if serialPort.in_waiting > 0:
             readstrings = serialPort.readline().decode('Ascii').strip().split(",")
-            if '' in readstrings:
-                readstrings.remove('')
             for element in readstrings:
-                read.append(float(element))
+                try:
+                    read.append(float(element))
+                except ValueError:
+                    continue
+        print(read)
         for i in read:
             if i != 0.0:
                 no_zero = True
             if i == 0.0:
                 no_zero = False
+                break
     serialPort.close()
 
 
