@@ -202,6 +202,12 @@ class Ui_MainWindow(object):
 "color: rgb(170, 0, 0);\n"
 "")
         self.pushButton.setObjectName("pushButton")
+        self.label_3 = QtWidgets.QLabel(self.centralwidget)
+        self.label_3.setGeometry(QtCore.QRect(30, 10, 211, 61))
+        self.label_3.setText("")
+        self.label_3.setPixmap(QtGui.QPixmap("w-hs_pagelogo.png"))
+        self.label_3.setScaledContents(True)
+        self.label_3.setObjectName("label_3")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1280, 21))
