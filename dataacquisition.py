@@ -21,7 +21,7 @@ def data_recording():
         ot = time.time()
         while 1:
             if serialPort.in_waiting > 0:
-                serialString = serialPort.readline().decode('Ascii')
+                serialString = serialPort.readline().decode('Ascii', 'ignore')
                 data[time.time()] = serialString.split(",")
 
                 if time.time() - ot > 12:
@@ -46,7 +46,11 @@ def data_processing(initials):                                                  
         reader = csv.reader(file, delimiter=',', quotechar='"')
         for row in reader:
             for i in range(0, 9):
-                newdata[i].append(float(row[i]))
+                try:
+                    newdata[i].append(float(row[i]))
+                except ValueError:
+                    newdata[i].append(0.0)
+                    continue
 
     for i in range(0, 9):
         newdata[i] = newdata[i][1:-5]
