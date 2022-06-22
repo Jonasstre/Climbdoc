@@ -17,7 +17,7 @@ arduino_not_found = False
 
 serialString = ""
 
-com_port = "COM4"
+com_port = "/dev/ttyACM0"
 dataacquisition.com_port = com_port
 try:
     serialPort = serial.Serial(port=com_port, baudrate=9600, bytesize=8, timeout=2, stopbits=serial.STOPBITS_ONE)
