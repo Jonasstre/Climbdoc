@@ -47,6 +47,7 @@ def data_processing(initials):                                                  
         for row in reader:
             for i in range(0, 9):
                 try:
+                    print(row)
                     newdata[i].append(float(row[i]))
                 except ValueError:
                     newdata[i].append(0.0)
