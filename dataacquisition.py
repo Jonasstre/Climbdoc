@@ -21,9 +21,12 @@ def data_recording():
         ot = time.time()
         while 1:
             if serialPort.in_waiting > 0:
-                serialString = serialPort.readline().decode('Ascii', 'ignore')
-                data[time.time()] = serialString.split(",")
-
+                serialString = serialPort.readline().decode('Ascii', 'ignore').strip()
+                serial_input = serialString.split(",")
+                if len(serial_input) < 9:
+                    for i in range(0, 9-len(serial_input)):
+                        serial_input.append("0.0")
+                data[time.time()] = ",".join(serial_input)
                 if time.time() - ot > 12:
                     break
         serialPort.close()
