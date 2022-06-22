@@ -94,7 +94,7 @@ def wait_for_load():
         print(read)
         if not read:
             continue
-        for i in range(0, 9):
+        for i in range(0, 8):
             if read[i] != 0.0:
                 no_zero = True
             if read[i] == 0.0:
