@@ -26,6 +26,7 @@ class MainWindow(QtWidgets.QMainWindow, main_window_ui):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
+        self.label_3.setPixmap(QtGui.QPixmap(os.path.join(os.path.dirname(__file__), "w-hs_pagelogo.png")))
 
 
 class ArdNotFound(QtWidgets.QMainWindow, ard_not_found_ui):
