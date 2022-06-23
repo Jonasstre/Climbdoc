@@ -17,7 +17,7 @@ class Ui_ardnotfound(object):
         ardnotfound.resize(1280, 740)
         ardnotfound.setStyleSheet("background-color: rgb(59, 59, 59)")
         self.label = QtWidgets.QLabel(ardnotfound)
-        self.label.setGeometry(QtCore.QRect(100, 150, 821, 450))
+        self.label.setGeometry(QtCore.QRect(100, 150, 1101, 450))
         self.label.setStyleSheet("color: rgb(255,255,255)")
         self.label.setObjectName("label")
 
