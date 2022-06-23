@@ -17,7 +17,7 @@ class Ui_Form(object):
         Form.resize(1280, 740)
         Form.setStyleSheet("background-color: rgb(59, 59, 59)")
         self.label = QtWidgets.QLabel(Form)
-        self.label.setGeometry(QtCore.QRect(200, 270, 880, 200))
+        self.label.setGeometry(QtCore.QRect(200, 270, 1071, 200))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.label.setFont(font)

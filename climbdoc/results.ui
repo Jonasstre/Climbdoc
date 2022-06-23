@@ -65,7 +65,7 @@ color: rgb(0, 0, 127);
     <rect>
      <x>710</x>
      <y>150</y>
-     <width>541</width>
+     <width>571</width>
      <height>421</height>
     </rect>
    </property>
@@ -193,7 +193,7 @@ color: rgb(0, 0, 127);
     <rect>
      <x>40</x>
      <y>520</y>
-     <width>184</width>
+     <width>321</width>
      <height>50</height>
     </rect>
    </property>
@@ -214,7 +214,7 @@ color: rgb(0, 0, 127);
     <rect>
      <x>40</x>
      <y>450</y>
-     <width>257</width>
+     <width>321</width>
      <height>50</height>
     </rect>
    </property>
@@ -235,7 +235,7 @@ color: rgb(0, 0, 127);
     <rect>
      <x>40</x>
      <y>30</y>
-     <width>160</width>
+     <width>301</width>
      <height>50</height>
     </rect>
    </property>
@@ -256,7 +256,7 @@ color: rgb(0, 0, 127);
     <rect>
      <x>40</x>
      <y>100</y>
-     <width>230</width>
+     <width>311</width>
      <height>50</height>
     </rect>
    </property>
@@ -277,7 +277,7 @@ color: rgb(0, 0, 127);
     <rect>
      <x>40</x>
      <y>170</y>
-     <width>280</width>
+     <width>311</width>
      <height>50</height>
     </rect>
    </property>
@@ -298,7 +298,7 @@ color: rgb(0, 0, 127);
     <rect>
      <x>40</x>
      <y>240</y>
-     <width>265</width>
+     <width>311</width>
      <height>50</height>
     </rect>
    </property>
@@ -319,7 +319,7 @@ color: rgb(0, 0, 127);
     <rect>
      <x>40</x>
      <y>310</y>
-     <width>290</width>
+     <width>321</width>
      <height>50</height>
     </rect>
    </property>
@@ -340,7 +340,7 @@ color: rgb(0, 0, 127);
     <rect>
      <x>40</x>
      <y>380</y>
-     <width>305</width>
+     <width>321</width>
      <height>50</height>
     </rect>
    </property>
