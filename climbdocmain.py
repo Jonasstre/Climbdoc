@@ -151,8 +151,8 @@ def measure_once_start():           #function linked to the measure once button 
     window.datarepr_window.pushButton.clicked.connect(lambda: window.w.setCurrentIndex(6))
     window.w.setCurrentIndex(5)
     serialPort.open()
-    os.remove(os.path.join(os.path.dirname(__file__),  "No_initials.csv"))
-    os.remove(os.path.join(os.path.dirname(__file__), initials + "No_initials_averages.csv"))
+    os.remove("No_initials.csv")
+    os.remove("No_initials_averages.csv")
 
 
 def check_if_free():
@@ -194,10 +194,10 @@ def measure_twice_two(initials):
     serialPort.open()
     window.initials_window.label_2.setVisible(False)
     window.initials_window.textEdit.clear()
-    os.remove(os.path.join(os.path.dirname(__file__), initials + "_reference.csv"))
-    os.remove(os.path.join(os.path.dirname(__file__), initials + "_reference_averages.csv"))
-    os.remove(os.path.join(os.path.dirname(__file__), initials + ".csv"))
-    os.remove(os.path.join(os.path.dirname(__file__), initials + "_averages.csv"))
+    os.remove(initials + "_reference.csv")
+    os.remove(initials + "_reference_averages.csv")
+    os.remove(initials + ".csv")
+    os.remove(initials + "_averages.csv")
 
 
 def measure_twice_two_start():
