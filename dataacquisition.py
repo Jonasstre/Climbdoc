@@ -1,6 +1,7 @@
 import time
 import serial
 import csv
+import os
 
 data = {}
 averages = []
@@ -33,7 +34,7 @@ def data_recording():
 
 
 def data_writing(initials):
-    with open(initials+'.csv', 'w', newline='') as file:
+    with open(os.path.join(os.path.dirname(__file__), initials+'.csv'), 'w', newline='') as file:
         data_writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         for key in data.keys():
             row = [key]
@@ -45,7 +46,7 @@ def data_processing(initials):                                                  
     global newdata
     averages.clear()
     newdata = [[1.0], [1.0], [1.0], [1.0], [1.0], [1.0], [1.0], [1.0], [1.0]]
-    with open(initials+'.csv', 'r', newline='') as file:
+    with open(os.path.join(os.path.dirname(__file__), initials+'.csv'), 'r', newline='') as file:
         reader = csv.reader(file, delimiter=',', quotechar='"')
         for row in reader:
             for i in range(0, 9):
@@ -70,7 +71,7 @@ def data_processing(initials):                                                  
         else:
             averages.append(round(((average/tot)*100), 2))
 
-    with open(initials+"_averages"+'.csv', 'w', newline='') as file:
+    with open(os.path.join(os.path.dirname(__file__), initials+"_averages"+'.csv'), 'w', newline='') as file:
         data_writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         data_writer.writerow(averages)
 
