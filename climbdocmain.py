@@ -56,7 +56,7 @@ def set_graphics_view(scene, newdata):
     axes.grid(True)
 
     canvas = FigureCanvas(figure)
-    canvas.resize(1170, 540)
+    canvas.resize(1170, 515)
     proxy_widget = scene.addWidget(canvas)
 
 
@@ -151,6 +151,8 @@ def measure_once_start():           #function linked to the measure once button 
     window.datarepr_window.pushButton.clicked.connect(lambda: window.w.setCurrentIndex(6))
     window.w.setCurrentIndex(5)
     serialPort.open()
+    os.remove(os.path.join(os.path.dirname(__file__),  "No_initials.csv"))
+    os.remove(os.path.join(os.path.dirname(__file__), initials + "No_initials_averages.csv"))
 
 
 def check_if_free():

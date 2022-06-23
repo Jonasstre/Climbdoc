@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1280</width>
-    <height>800</height>
+    <height>740</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>650</y>
+     <y>600</y>
      <width>581</width>
      <height>110</height>
     </rect>
@@ -34,7 +34,7 @@
     <string notr="true">color: rgb(0, 170, 0);</string>
    </property>
    <property name="text">
-    <string>Thank you for using ClimbDoc!</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;Thank you for using ClimbDoc!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">

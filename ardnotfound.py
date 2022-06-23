@@ -14,10 +14,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_ardnotfound(object):
     def setupUi(self, ardnotfound):
         ardnotfound.setObjectName("ardnotfound")
-        ardnotfound.resize(1280, 800)
+        ardnotfound.resize(1280, 740)
         ardnotfound.setStyleSheet("background-color: rgb(59, 59, 59)")
         self.label = QtWidgets.QLabel(ardnotfound)
-        self.label.setGeometry(QtCore.QRect(100, 150, 1100, 450))
+        self.label.setGeometry(QtCore.QRect(100, 150, 821, 450))
         self.label.setStyleSheet("color: rgb(255,255,255)")
         self.label.setObjectName("label")
 
@@ -27,4 +27,4 @@ class Ui_ardnotfound(object):
     def retranslateUi(self, ardnotfound):
         _translate = QtCore.QCoreApplication.translate
         ardnotfound.setWindowTitle(_translate("ardnotfound", "Form"))
-        self.label.setText(_translate("ardnotfound", "<html><head/><body><p><span style=\" font-size:48pt; font-weight:700;\">Arduino not found! </span></p><p><span style=\" font-size:48pt;\">Please check connections and reboot!</span></p></body></html>"))
+        self.label.setText(_translate("ardnotfound", "<html><head/><body><p><span style=\" font-size:36pt; font-weight:700;\">Arduino not found! </span></p><p><span style=\" font-size:36pt;\">Please check connections and reboot!</span></p></body></html>"))

@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(1280, 800)
+        Form.resize(1280, 740)
         Form.setStyleSheet("background-color: rgb(59, 59, 59)")
         self.lcdNumber = QtWidgets.QLCDNumber(Form)
         self.lcdNumber.setGeometry(QtCore.QRect(500, 270, 350, 200))

@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_initials(object):
     def setupUi(self, initials):
         initials.setObjectName("initials")
-        initials.resize(1280, 800)
+        initials.resize(1280, 740)
         initials.setStyleSheet("background-color: rgb(59, 59, 59)")
         self.label = QtWidgets.QLabel(initials)
         self.label.setEnabled(True)
