@@ -239,6 +239,12 @@ def prep_data_repr(datarpr, initials, newdata):   # function for inserting the d
     set_graphics_view(datarpr.scene, newdata)
 
 
+def return_to_menu():
+    window.initials_window.label_2.setVisible(False)
+    window.initials_window.textEdit.clear()
+    window.w.setCurrentIndex(0)
+
+
 # def datarep_test():     # function for testing the data representatin window
 #     global newdata
 #     newdata = dataacquisition.data_processing()
@@ -275,6 +281,7 @@ class WindowCreator:
         self.main_window.pushButton_3.clicked.connect(measure_twice_one_start)
         self.main_window.pushButton_4.clicked.connect(measure_twice_two_start)
         self.main_window.pushButton.clicked.connect(lambda: sys.exit(app.exec_()))
+        self.initials_window.pushButton_2.clicked.connect(return_to_menu)
         self.datarepr_window.pushButton.clicked.connect(lambda: self.w.setCurrentIndex(6))
         self.results_window.pushButton.clicked.connect(lambda: self.w.setCurrentIndex(0))
 
