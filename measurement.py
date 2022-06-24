@@ -24,7 +24,7 @@ class Ui_Form(object):
         self.lcdNumber.setProperty("intValue", 10)
         self.lcdNumber.setObjectName("lcdNumber")
         self.progressBar = QtWidgets.QProgressBar(Form)
-        self.progressBar.setGeometry(QtCore.QRect(150, 620, 971, 61))
+        self.progressBar.setGeometry(QtCore.QRect(150, 110, 971, 61))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.progressBar.setFont(font)
