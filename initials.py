@@ -52,6 +52,15 @@ class Ui_initials(object):
 "color: rgb(0, 0, 0);\n"
 "")
         self.pushButton.setObjectName("pushButton")
+        self.pushButton_2 = QtWidgets.QPushButton(initials)
+        self.pushButton_2.setGeometry(QtCore.QRect(20, 20, 350, 70))
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        self.pushButton_2.setFont(font)
+        self.pushButton_2.setStyleSheet("background-color: rgb(211, 211, 211);\n"
+"color: rgb(0, 0, 255);\n"
+"")
+        self.pushButton_2.setObjectName("pushButton_2")
 
         self.retranslateUi(initials)
         QtCore.QMetaObject.connectSlotsByName(initials)
@@ -68,3 +77,4 @@ class Ui_initials(object):
         self.label_2.setText(_translate("initials", "Initials already taken! Please add another identifier! \n"
 "(For example a number)"))
         self.pushButton.setText(_translate("initials", "Check"))
+        self.pushButton_2.setText(_translate("initials", "Main Menu"))
