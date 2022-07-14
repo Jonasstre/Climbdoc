@@ -1,7 +1,7 @@
 # link solution: https://stackoverflow.com/questions/55842776/how-to-change-ui-in-same-window-using-pyqt5
 
 
-import csv
+import csv                                                                      # imports the necessary packages
 import os
 from qtpy import QtCore, QtGui, QtWidgets, uic
 from matplotlib.figure import Figure
@@ -13,28 +13,24 @@ import threading
 import dataacquisition
 import UiWindows
 
-arduino_not_found = False
+arduino_not_found = False                                  # creates arduinonotfound variable, sets it to false
 
-serialString = ""
+serialString = ""                                           # creates empty string
 
-com_port = "/dev/ttyACM0"
-dataacquisition.com_port = com_port
-try:
+com_port = "/dev/ttyACM0"                                   # sets the variable for the port the arduino is connected to
+dataacquisition.com_port = com_port                         # sets the com_port variable in the dataacquisition file
+try:                                                        # tries to connect to the arduino
     serialPort = serial.Serial(port=com_port, baudrate=9600, bytesize=8, timeout=2, stopbits=serial.STOPBITS_ONE)
-except serial.serialutil.SerialException:
+except serial.serialutil.SerialException:                   # catches exception for when no arduino is found
     print("Arduino not Found")
     arduino_not_found = True
-# data = {}
-# averages = []
-# newdata = []
-# if arduino_not_found:
-#     state = "anfError"
-
-app = QtWidgets.QApplication(sys.argv)
 
 
-def set_graphics_view(scene, newdata):
-    figure = Figure()
+app = QtWidgets.QApplication(sys.argv)                      # initialises a QApplication using sys
+
+
+def set_graphics_view(scene, newdata):                      # function for creating a graph out of the recorded data for
+    figure = Figure()                                       # the datarpr window
     axes = figure.gca()
     axes.set_title("Finger forces")
     seconds = []
@@ -60,12 +56,12 @@ def set_graphics_view(scene, newdata):
     proxy_widget = scene.addWidget(canvas)
 
 
-def measure(initials):
+def measure(initials):                          # framework function for measuring
     wait_for_load()
 
     window.w.setCurrentIndex(3)
 
-    if __name__ == "__main__":
+    if __name__ == "__main__":                      # uses threading to run the ui and data recording concurrently
         x = threading.Thread(target=dataacquisition.data_recording)
         y = threading.Thread(target=window.measurement_window.countdown)
         x.start()
@@ -73,40 +69,38 @@ def measure(initials):
         x.join()
     dataacquisition.data_writing(initials)
     newdata = dataacquisition.data_processing(initials)
-    time.sleep(2)
-    print("I'm done!")
+    time.sleep(2)                                                   # waits for data processing to finish
     return newdata
 
 
-def wait_for_load():
-    no_zero = False
+def wait_for_load():                                                # function that holds the program until all sensors
+    no_zero = False                                                 # output a value greater than 0
     read = []
-    while not no_zero:
+    while not no_zero:                                              # loop runs until all values /= 0
         if serialPort.in_waiting > 0:
-            readstrings = serialPort.readline().decode('Ascii', 'ignore').strip().split(",")
-            for element in readstrings:
+            readstrings = serialPort.readline().decode('Ascii', 'ignore').strip().split(",")    # reads the serialport
+            for element in readstrings:                                                         # and adds it to a list
                 try:
                     read.append(float(element))
                 except ValueError:
                     read.append(0.0)
                     continue
         read = read[:-1]
-        print(read)
-        if not read:
+        if not read:                                                                # skips loop if read list is empty
             continue
-        for i in range(0, 8):
-            if read[i] != 0.0:
+        for i in range(0, 8):                                                       # iterates through read list and
+            if read[i] != 0.0:                                                      # outputs wether or not there's a 0
                 no_zero = True
             if read[i] == 0.0:
                 no_zero = False
                 break
-        read.clear()
-    serialPort.close()
+        read.clear()                                                                # empties read list
+    serialPort.close()                                                              # closes the serial port
 
 
-def prep_results(initials):
+def prep_results(initials):                                                 # function for preparing the results window
     performance = []
-    signal = [
+    signal = [                                                              # adds all signals on results window to list
         window.results_window.label_1,
         window.results_window.label_2,
         window.results_window.label_3,
@@ -123,8 +117,8 @@ def prep_results(initials):
     with open(os.path.join(os.path.dirname(__file__),initials + '_averages.csv'), 'r', newline='') as file:
         reader = csv.reader(file, delimiter=',', quotechar='"')
         for row in reader:
-            averages = row
-    for i in range(0, 8):
+            averages = row                   # reads both the averages and the reference averages and adds them to lists
+    for i in range(0, 8):                   # loop that assigns performance values to each finger
         if float(averages_reference[i]) - float(averages_reference[i]) * 0.1 < float(averages[i]) \
                 < float(averages_reference[i]) + float(averages_reference[i]) * 0.1:
             performance.append(0)
@@ -133,7 +127,7 @@ def prep_results(initials):
             performance.append(1)
         else:
             performance.append(2)
-    for i in range(0, 8):
+    for i in range(0, 8):                           # loop that colors the signals based on the performances
         if performance[i] == 0:
             signal[i].setStyleSheet("background-color: green")
         elif performance[i] == 1:
@@ -142,21 +136,21 @@ def prep_results(initials):
             signal[i].setStyleSheet("background-color: red")
 
 
-def measure_once_start():           #function linked to the measure once button in the main menu
+def measure_once_start():           # function linked to the measure once button in the main menu
     window.w.setCurrentIndex(4)
-    app.processEvents()
-    newdata = measure("No_initials")
-    prep_data_repr(window.datarepr_window, "No_initials", newdata)
+    app.processEvents()             # forces the application to wait for the window switch
+    newdata = measure("No_initials")            # executes the measurement files with no initials and saves the result
+    prep_data_repr(window.datarepr_window, "No_initials", newdata)      # as newdata
     prep_results("No_initials")
     window.datarepr_window.pushButton.clicked.connect(lambda: window.w.setCurrentIndex(6))
     window.w.setCurrentIndex(5)
-    serialPort.open()
-    os.remove(os.path.join(os.path.dirname(__file__), "No_initials.csv"))
+    serialPort.open()                                       # opens the serial port
+    os.remove(os.path.join(os.path.dirname(__file__), "No_initials.csv"))                   # removes the csv files
     os.remove(os.path.join(os.path.dirname(__file__), "No_initials_averages.csv"))
 
 
-def check_if_free():
-    initials = window.initials_window.textEdit.toPlainText()
+def check_if_free():                              # function for checking if there is a csv file with the given initials
+    initials = window.initials_window.textEdit.toPlainText()       # extracts the text from the initials textEdit
     if initials != '' and initials + "_reference.csv" not in os.listdir(os.path.dirname(__file__)):
         measure_twice_one(initials + "_reference")
     elif initials == '':
@@ -167,9 +161,10 @@ def check_if_free():
             "Initials already taken! Please add another identifier! (For example a number)"
         )
         window.initials_window.label_2.setVisible(True)
+    # checks if textEdit is empty and wether or not the initials are already in use
 
 
-def check_if_exists():
+def check_if_exists():                            # function for checking if there is data for the given initials
     initials = window.initials_window.textEdit.toPlainText()
     if initials != '' and initials + "_reference.csv" in os.listdir(os.path.dirname(__file__)):
         measure_twice_two(initials)
@@ -183,7 +178,7 @@ def check_if_exists():
         window.initials_window.label_2.setVisible(True)
 
 
-def measure_twice_two(initials):
+def measure_twice_two(initials):          # function for the second measurement of the double measurement functionality
     window.w.setCurrentIndex(4)
     app.processEvents()
     newdata = measure(initials)
@@ -200,12 +195,12 @@ def measure_twice_two(initials):
     os.remove(os.path.join(os.path.dirname(__file__), initials + "_averages.csv"))
 
 
-def measure_twice_two_start():
+def measure_twice_two_start():                  # function linked to the second measurement button in the main menu
     window.w.setCurrentIndex(2)
     window.initials_window.pushButton.clicked.connect(check_if_exists)
 
 
-def measure_twice_one(initials):
+def measure_twice_one(initials):            # function for the first measurement of the double measurement functionality
     window.w.setCurrentIndex(4)
     app.processEvents()
     newdata = measure(initials)
@@ -217,7 +212,7 @@ def measure_twice_one(initials):
     window.initials_window.textEdit.clear()
 
 
-def measure_twice_one_start():
+def measure_twice_one_start():              # function linked to the second measuremet button in the main menu
     window.w.setCurrentIndex(2)
     window.initials_window.pushButton.clicked.connect(check_if_free)
 
@@ -239,20 +234,13 @@ def prep_data_repr(datarpr, initials, newdata):   # function for inserting the d
     set_graphics_view(datarpr.scene, newdata)
 
 
-def return_to_menu():
+def return_to_menu():                           # linked to the menu button in the initials window
     window.initials_window.label_2.setVisible(False)
     window.initials_window.textEdit.clear()
     window.w.setCurrentIndex(0)
 
 
-# def datarep_test():     # function for testing the data representatin window
-#     global newdata
-#     newdata = dataacquisition.data_processing()
-#     prep_data_repr(window.datarepr_window)
-#     window.w.setCurrentIndex(5)
-
-
-class WindowCreator:
+class WindowCreator:                                # class that sets up the ui
     def __init__(self):
         self.w = QtWidgets.QStackedWidget()
         self.main_window = UiWindows.MainWindow()
@@ -273,10 +261,10 @@ class WindowCreator:
         self.push_button_connect()
         self.w.show()
         self.w.setWindowTitle("ClimbDoc")
-        if arduino_not_found:
+        if arduino_not_found:                       # sets the window to arduino not found if no arduino is found
             self.w.setCurrentIndex(1)
 
-    def push_button_connect(self):
+    def push_button_connect(self):                  # connects the buttons to their functions
         self.main_window.pushButton_2.clicked.connect(measure_once_start)
         self.main_window.pushButton_3.clicked.connect(measure_twice_one_start)
         self.main_window.pushButton_4.clicked.connect(measure_twice_two_start)
@@ -286,6 +274,6 @@ class WindowCreator:
         self.results_window.pushButton.clicked.connect(lambda: self.w.setCurrentIndex(0))
 
 
-window = WindowCreator()
+window = WindowCreator()                        # creates window object
 
-sys.exit(app.exec_())
+sys.exit(app.exec_())                           # closes QApplication
