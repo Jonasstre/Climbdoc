@@ -3,7 +3,7 @@ import sys
 import time
 from qtpy import QtCore, QtGui, QtWidgets, uic
 
-from ardnotfound import Ui_ardnotfound as ard_not_found_ui
+from ardnotfound import Ui_ardnotfound as ard_not_found_ui              # imports uic generated python files
 from between import Ui_Form as between_ui
 from mainwindow import Ui_MainWindow as main_window_ui
 from initials import Ui_initials as initials_ui
@@ -27,6 +27,7 @@ class MainWindow(QtWidgets.QMainWindow, main_window_ui):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         self.label_3.setPixmap(QtGui.QPixmap(os.path.join(os.path.dirname(__file__), "w-hs_pagelogo.png")))
+# sets the main menu logo
 
 
 class ArdNotFound(QtWidgets.QMainWindow, ard_not_found_ui):
@@ -41,15 +42,6 @@ class Initials(QtWidgets.QMainWindow, initials_ui):
         self.setupUi(self)
         self.label_2.setVisible(False)
 
-    def already_exist_show_hide(self):
-        self.label_2.setVisible(not (self.label_2.isVisible()))
-
-    def keyPressEvent(self, qKeyEvent):
-        if qKeyEvent.key() == QtCore.Qt.Key_Return:
-            print("Enter pressed")
-        else:
-            super().keyPressEvent(qKeyEvent)
-
 
 class Measurement(QtWidgets.QMainWindow, measurement_ui):
     def __init__(self, app, parent=None):
@@ -57,7 +49,7 @@ class Measurement(QtWidgets.QMainWindow, measurement_ui):
         self.setupUi(self)
         self.app = app
 
-    def countdown(self):
+    def countdown(self):                # function that counts up the progress bar and counts down the timer
         i = 9
         j = 1
         ot = time.time()
