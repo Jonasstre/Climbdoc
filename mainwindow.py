@@ -223,7 +223,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Climbdoc"))
-        self.pushButton_4.setText(_translate("MainWindow", "Secound Measurement"))
+        self.pushButton_4.setText(_translate("MainWindow", "Second Measurement"))
         self.pushButton_3.setText(_translate("MainWindow", "First Measurement"))
         self.label_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:22pt; color:#ffffff;\">For double measurement:</span></p></body></html>"))
         self.pushButton_2.setText(_translate("MainWindow", "Take Measurement (measure once)"))

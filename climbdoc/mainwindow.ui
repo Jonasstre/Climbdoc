@@ -37,7 +37,7 @@ color: rgb(0, 0, 0)
 </string>
     </property>
     <property name="text">
-     <string>Secound Measurement</string>
+     <string>Second Measurement</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_3">
